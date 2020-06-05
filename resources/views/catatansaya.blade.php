@@ -36,6 +36,9 @@
                         Keperluan
                       </th>
                       <th>
+                        Token
+                      </th>
+                      <th>
                         Status
                       </th>
                       <th>
@@ -53,6 +56,9 @@
                         </td>
                         <td>
                           {{$a->keperluan}}
+                        </td>
+                        <td>
+                          {{$a->kode_unik}}
                         </td>
                         <td>
                           {{$a->status}}

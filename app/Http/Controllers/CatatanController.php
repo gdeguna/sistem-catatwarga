@@ -79,4 +79,20 @@ class CatatanController extends Controller
                     ->get();
         return view('permintaan', ['datamenunggu'=>$datamenunggu]);
     }
+
+    public function terimapermintaan($id){
+        
+        DB::table('tb_catatan')->where('kode_unik', $id)->update([
+        'status' => 'Diterima'
+        ]);
+        return redirect('/permintaan')->with('Data berhasil diterima.');
+    }
+
+    public function tolakpermintaan($id){
+        
+        DB::table('tb_catatan')->where('kode_unik', $id)->update([
+        'status' => 'Ditolak'
+        ]);
+        return redirect('/permintaan')->with('Data berhasil ditolak.');
+    }
 }

@@ -36,6 +36,9 @@
                         Keperluan
                       </th>
                       <th>
+                        Token
+                      </th>
+                      <th>
                         Waktu Pengajuan
                       </th>
                       <th class="text-center">
@@ -58,11 +61,14 @@
                           {{$a->keperluan}}
                         </td>
                         <td>
+                          {{$a->kode_unik}}
+                        </td>
+                        <td>
                           {{$a->tgl_pengajuan}}
                         </td>
                         <td class="text-center">
-                          <a class="btn btn-success" href="/terima/{{$a->nik}}">Terima</a>
-                          <a class="btn btn-danger" href="/tolak/{{$a->nik}}">Tolak</a>
+                          <a class="btn btn-success" href="/terima/{{$a->kode_unik}}">Terima</a>
+                          <a class="btn btn-danger" href="/tolak/{{$a->kode_unik}}">Tolak</a>
                         </td>
                       </tr>
                     @endforeach
@@ -73,5 +79,12 @@
             </div>
           </div>
         </div>
+<script>
+  var msg = '{{Session::get('alert')}}';
+  var exist = '{{Session::has('alert')}}';
+  if(exist){
+    alert(msg);
+  }
+</script>
 </div>
 @endsection

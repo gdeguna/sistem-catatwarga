@@ -55,6 +55,8 @@ Route::post('/catatanpost', 'CatatanController@simpancatatan');
 Route::get('/daftarjalan/{email}', 'CatatanController@indexdata');
 Route::get('/datakeluar', 'CatatanController@alldatakeluar');
 Route::get('/permintaan', 'CatatanController@allmenunggu');
+Route::get('/terima/{kode_unik}', 'CatatanController@terimapermintaan');
+Route::get('/tolak/{kode_unik}', 'CatatanController@tolakpermintaan');
 
 
 
