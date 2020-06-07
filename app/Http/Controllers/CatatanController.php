@@ -95,4 +95,46 @@ class CatatanController extends Controller
         ]);
         return redirect('/permintaan')->with('Data berhasil ditolak.');
     }
+
+    //warga halaman
+
+    public function public_index($email){
+
+        // $hasilkuh = ModelWarga::find($email);
+        $hasildata = ModelWarga::where('email', '=', $email)->first();
+        return view('public_formcatatan', ['hasildata'=>$hasildata]);
+    }
+
+    public function simpancatatanwarga(Request $request){
+        $this->validate($request, [
+            'nik' => 'required|min:16',
+            'tempat_tujuan' => 'required|min:4' ,
+            'keperluan' => 'required',
+            'kode_unik' => 'required|unique:tb_catatan',
+            'status' => 'required',
+            'tgl_pengajuan' => 'required'
+        ]);
+
+        $datacatatan = new ModelCatatan();
+        $datacatatan->nik = $request->nik;
+        $datacatatan->tempat_tujuan = $request->tempat_tujuan;
+        $datacatatan->keperluan = $request->keperluan;
+        $datacatatan->kode_unik = $request->kode_unik;
+        $datacatatan->status = $request->status;
+        $datacatatan->tgl_pengajuan = $request->tgl_pengajuan;
+        $datacatatan->save();
+        return redirect('/dashboardwarga')->with('alert','Pengajuan disimpan.');
+
+    }
+
+    public function publicindexdata($email){
+
+        // $hasilkuh = ModelWarga::find($email);
+        // $dataanda = ModelWarga::leftJoin('tb_warga','tb_catatan')->where('email', '=', $email)->get();
+        $dataanda = DB::table('tb_warga')
+                    ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
+                    ->where('email', '=', $email)
+                    ->get();
+        return view('public_catatansaya', ['dataanda'=>$dataanda]);
+    }
 }

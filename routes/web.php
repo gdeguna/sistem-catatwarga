@@ -58,6 +58,13 @@ Route::get('/permintaan', 'CatatanController@allmenunggu');
 Route::get('/terima/{kode_unik}', 'CatatanController@terimapermintaan');
 Route::get('/tolak/{kode_unik}', 'CatatanController@tolakpermintaan');
 
+// Warga
+Route::get('/dashboardwarga', 'WargaController@dashboardwarga');
+Route::get('/publicuser/{email}', 'WargaController@publiceditwarga');
+Route::get('/publicdaftarjalan/{email}', 'CatatanController@publicindexdata');
+Route::get('/publicformcatatan/{email}', 'CatatanController@public_index');
+Route::post('/publiccatatanpost', 'CatatanController@simpancatatanwarga');
+
 
 
 

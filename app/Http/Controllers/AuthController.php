@@ -21,11 +21,17 @@ class AuthController extends Controller
 
         $data = ModelWarga::where('email',$email)->first();
         if($data){ //apakah email tersebut ada atau tidak
-            if(Hash::check($password,$data->password)){
+            if(Hash::check($password,$data->password) && $data->role == 'satgas'){
                 Session::put('name',$data->name);
                 Session::put('email',$data->email);
                 Session::put('login',TRUE);
                 return redirect('/dashboard');
+            }
+            if(Hash::check($password,$data->password) && $data->role == 'warga'){
+                Session::put('name',$data->name);
+                Session::put('email',$data->email);
+                Session::put('login',TRUE);
+                return redirect('/dashboardwarga');
             }
             else{
                 return redirect('/')->with('alert','Password atau Email, Salah !');
@@ -48,6 +54,7 @@ class AuthController extends Controller
             'nik' => 'min:16|unique:tb_warga',
             'email' => 'required|min:4|email|unique:tb_warga',
             'password' => 'required',
+            'token' => 'required|unique:tb_warga',
             'tgl_lahir' => 'required',
             'gender' => 'required'
         ]);
@@ -57,6 +64,7 @@ class AuthController extends Controller
         $data->nik = $request->nik;
         $data->email = $request->email;
         $data->password = bcrypt($request->password);
+        $data->token = $request->token;
         $data->tgl_lahir = $request->tgl_lahir;
         $data->gender = $request->gender;
         $data->role = $request->role;

@@ -150,8 +150,4 @@
           </div>
         </div>
 </div>
-<script src="{{asset('qrjs/qrcode.js')}}"></script>
-<script type="text/javascript">
-new QRCode(document.getElementById("kodeqr"), "1234");
-</script>
 @endsection

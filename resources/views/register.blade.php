@@ -84,6 +84,12 @@
                                     <input class="input--style-5" type="date" name="tgl_lahir">
                                 </div>
                             </div>
+                            <input type = "hidden" name = "token" value ="{{ rand(1000,10000) }}">
+                                @if($errors->has('token'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('kode_unik')}}
+                                    </div>
+                                @endif
                         </div>
                         <div class="form-row">
                             <div class="name">Jenis Kelamin</div>
