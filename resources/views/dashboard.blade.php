@@ -26,7 +26,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Masyarakat terdaftar</p>
-                      <p class="card-title">1000<p>
+                      <p class="card-title">{{$jumlahwarga}}<p>
                     </div>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Pengajuan Keluar Rumah</p>
-                      <p class="card-title">90<p>
+                      <p class="card-title">{{$jumlahpengajuan}}<p>
                     </div>
                   </div>
                 </div>
@@ -78,7 +78,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Pengajuan Yang Diterima</p>
-                      <p class="card-title">23<p>
+                      <p class="card-title">{{$jumlahditerima}}<p>
                     </div>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Pengajuan yang ditolak</p>
-                      <p class="card-title">80<p>
+                      <p class="card-title">{{$jumlahditolak}}<p>
                     </div>
                   </div>
                 </div>
@@ -114,36 +114,6 @@
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
                   Data hari ini
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
-            <div class="card ">
-              <div id="kodeqr"></div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Email Statistics</h5>
-                <p class="card-category">Last Campaign Performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-primary"></i> Opened
-                  <i class="fa fa-circle text-warning"></i> Read
-                  <i class="fa fa-circle text-danger"></i> Deleted
-                  <i class="fa fa-circle text-gray"></i> Unopened
-                </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar"></i> Number of emails sent
                 </div>
               </div>
             </div>

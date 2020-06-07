@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // panggil model pegawai
 use App\ModelWarga;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class WargaController extends Controller
 {
@@ -19,7 +21,12 @@ class WargaController extends Controller
 
     public function dashboard()
     {
-    	return view('dashboard');
+        $jumlahwarga = DB::table('tb_warga')->count();
+        $jumlahpengajuan = DB::table('tb_catatan')->count();
+        $jumlahditerima = DB::table('tb_catatan')->where('status', '=', 'Diterima')->whereDate('created_at', Carbon::today())->count();
+        $jumlahditolak = DB::table('tb_catatan')->where('status', '=', 'Ditolak')->whereDate('created_at', Carbon::today())->count();
+
+    	return view('dashboard', ['jumlahwarga'=>$jumlahwarga , 'jumlahpengajuan'=>$jumlahpengajuan , 'jumlahditolak'=>$jumlahditolak , 'jumlahditerima'=>$jumlahditerima]);
     }
 
         public function editwarga($email){
