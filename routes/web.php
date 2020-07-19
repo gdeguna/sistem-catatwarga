@@ -32,6 +32,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/1', function () {
 	return view('formcatatan');
 });
+Route::get('/scanner', function () {
+	return view('scanner');
+});
 
 
 
@@ -65,6 +68,10 @@ Route::get('/publicdaftarjalan/{email}', 'CatatanController@publicindexdata');
 Route::get('/publicformcatatan/{email}', 'CatatanController@public_index');
 Route::post('/publiccatatanpost', 'CatatanController@simpancatatanwarga');
 
+//Previlege
+Route::get('/hakakses', 'WargaController@halaman_hak');
+Route::get('/adminacc/{nik}', 'WargaController@jadisatgas');
+Route::get('/adminexit/{nik}', 'WargaController@jadiwarga');
 
 
 

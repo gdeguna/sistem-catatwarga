@@ -22,7 +22,7 @@
               <div class="card-body">
                 <div class="author">
                   <a href="#">
-                    <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
+                    <img class="avatar border-gray" src="{{ url('/userpic_dump/'.$hasilkuh['userpic']) }}" alt="...">
                     <h5 class="title">{{ @$hasilkuh['name'] }} </h5>
                   </a>
                 </div>
@@ -144,13 +144,6 @@
                   </div>
                 </form>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-5">
-            <div class="image">
-              <div id="kodeqr"></div>
             </div>
           </div>
         </div>

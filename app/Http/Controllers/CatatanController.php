@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ModelCatatan;
 use App\ModelWarga;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CatatanController extends Controller
 {
@@ -57,6 +58,7 @@ class CatatanController extends Controller
         // $dataanda = ModelWarga::leftJoin('tb_warga','tb_catatan')->where('email', '=', $email)->get();
         $dataall = DB::table('tb_warga')
                     ->rightJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
+                    ->where('status', '!=', 'Dibatalkan')
                     ->get();
         $dataditerima = DB::table('tb_warga')
                     ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
@@ -66,7 +68,12 @@ class CatatanController extends Controller
                     ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
                     ->where('status', '=', 'Ditolak')
                     ->get();
-        return view('datakeluar', ['dataall'=>$dataall , 'dataditolak'=>$dataditolak , 'dataditerima'=>$dataditerima], []);
+        $todaydata = DB::table('tb_warga')
+                    ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
+                    ->where('status', '!=', 'Dibatalkan')
+                    ->whereDate('tb_catatan.created_at', Carbon::today())
+                    ->get();
+        return view('datakeluar', ['dataall'=>$dataall , 'dataditolak'=>$dataditolak , 'dataditerima'=>$dataditerima, 'todaydata'=>$todaydata], []);
     }
 
     public function allmenunggu(){
@@ -85,7 +92,7 @@ class CatatanController extends Controller
         DB::table('tb_catatan')->where('kode_unik', $id)->update([
         'status' => 'Diterima'
         ]);
-        return redirect('/permintaan')->with('Data berhasil diterima.');
+        return back()->with('success','Permintaan diterima');
     }
 
     public function tolakpermintaan($id){
@@ -93,7 +100,7 @@ class CatatanController extends Controller
         DB::table('tb_catatan')->where('kode_unik', $id)->update([
         'status' => 'Ditolak'
         ]);
-        return redirect('/permintaan')->with('Data berhasil ditolak.');
+        return redirect('/permintaan')->with('success','Permintaan ditolak');
     }
 
     //warga halaman

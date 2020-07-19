@@ -56,8 +56,18 @@ class AuthController extends Controller
             'password' => 'required',
             'token' => 'required|unique:tb_warga',
             'tgl_lahir' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'userpic' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        // menyimpan data file yang diupload ke variabel $file
+        $file = $request->file('userpic');
+ 
+        $nama_file = date('Y-m-d')."_".$file->getClientOriginalName();
+ 
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuan_upload = 'userpic_dump';
+        $file->move($tujuan_upload,$nama_file);
 
         $data =  new ModelWarga();
         $data->name = $request->name;
@@ -68,6 +78,7 @@ class AuthController extends Controller
         $data->tgl_lahir = $request->tgl_lahir;
         $data->gender = $request->gender;
         $data->role = $request->role;
+        $data->userpic = $nama_file;
         $data->save();
         return redirect('/')->with('alert','Akun selesai. Silahkan Login');
     }

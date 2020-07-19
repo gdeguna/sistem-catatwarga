@@ -67,8 +67,8 @@
                           {{$a->tgl_pengajuan}}
                         </td>
                         <td class="text-center">
-                          <a class="btn btn-success" href="/terima/{{$a->kode_unik}}">Terima</a>
-                          <a class="btn btn-danger" href="/tolak/{{$a->kode_unik}}">Tolak</a>
+                          <a class="btn btn-success terima-confirm" href="/terima/{{$a->kode_unik}}">Terima</a>
+                          <a class="btn btn-danger tolak-confirm" href="/tolak/{{$a->kode_unik}}">Tolak</a>
                         </td>
                       </tr>
                     @endforeach

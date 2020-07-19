@@ -43,7 +43,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="POST" action="/registerpost">
+                    <form method="POST" action="/registerpost" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="name">Nama</div>
@@ -103,6 +103,14 @@
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Foto Profil</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="file" name="userpic">
                                 </div>
                             </div>
                         </div>

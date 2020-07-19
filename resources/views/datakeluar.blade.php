@@ -73,6 +73,66 @@
             </div>
           </div>
         </div>
+  {{-- tabel hari ini permintaan --}}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Catatan Aktivitas Hari Ini</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table" id="tabel-masyarakat">
+                    <thead class=" text-primary">
+                      <th>
+                        No
+                      </th>
+                      <th>
+                        Nama
+                      </th>
+                      <th>
+                        Tujuan Keluar
+                      </th>
+                      <th>
+                        Keperluan
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                      <th>
+                        Tanggal Pengajuan
+                      </th>
+                    </thead>
+                    <tbody>
+                      @foreach($todaydata as $todaynum => $t)
+                      <tr>
+                        <td>
+                          {{$todaynum +1}}
+                        </td>
+                        <td>
+                          {{$t->name}}
+                        </td>
+                        <td>
+                          {{$t->tempat_tujuan}}
+                        </td>
+                        <td>
+                          {{$t->keperluan}}
+                        </td>
+                        <td>
+                          {{$t->status}}
+                        </td>
+                        <td>
+                          {{$t->tgl_pengajuan}}
+                        </td>
+                      </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     {{-- tabel permintaan diterima --}}
         <div class="row">
           <div class="col-md-12">

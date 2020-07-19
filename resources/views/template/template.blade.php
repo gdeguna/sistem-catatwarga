@@ -28,6 +28,7 @@ Coded by www.creative-tim.com
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -165,7 +166,7 @@ Coded by www.creative-tim.com
               <span class="copyright">
                 © <script>
                   document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                </script>, Guna dharma
               </span>
             </div>
           </div>
@@ -193,17 +194,39 @@ Coded by www.creative-tim.com
       demo.initChartsPages();
     });
   </script>
-  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 {{-- tabel masyarakat --}}
   <script>
     $(document).ready(function(){
-        $('#tabel-masyarakat').DataTable();
+        $('#tabel-masyarakat').DataTable(
+          {
+        dom: 'Bfrtip',
+        buttons: [
+          {extend: 'excel', text: 'Export Excel'},
+          {extend: 'pdf', text: 'Export PDF'},
+          {extend: 'print', text: 'Print'},
+        ]
+    } );
     });
 </script>
 <script>
     $(document).ready(function(){
         $('#tabel-pengajuan').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#tabel-pengajuan2').DataTable();
     });
 </script>
  <script>
@@ -213,6 +236,47 @@ Coded by www.creative-tim.com
       alert(msg);
     }
   </script>
+
+{{-- sweetalert terima permintaan --}}
+<script type="text/javascript">
+$('.terima-confirm').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+        title: 'Apakah Yakin?',
+        text: 'Permintaan akan diterima.',
+        icon: 'warning',
+        buttons: ["Batalkan", "Ya!"],
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+            swal("Diterima...", {
+            icon: "success",
+            });
+        }
+    });
+});
+</script>
+{{-- sweetalert tolak permintaan --}}
+<script type="text/javascript">
+$('.tolak-confirm').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+        title: 'Apakah Yakin?',
+        text: 'Permintaan akan ditolak.',
+        icon: 'warning',
+        buttons: ["Batalkan", "Ya!"],
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+            swal("Dibatalkan...", {
+            icon: "success",
+    });
+        }
+    });
+});
+</script>
 </body>
 
 </html>
