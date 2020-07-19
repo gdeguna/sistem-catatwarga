@@ -83,20 +83,26 @@ Coded by www.creative-tim.com
               <p>Notifikasi Permintaan</p>
             </a>
           </li>
-          <li class="<?= ($activePage == 'datadiri') ? 'active':''; ?>">
-            <a href="/user/{{Session::get('email')}}">
+          <li class="<?= ($activePage == 'hakakses') ? 'active':''; ?>">
+            <a href="/hakakses">
+              <i class="nc-icon nc-key-25"></i>
+              <p>Hak Akses</p>
+            </a>
+          </li>
+          <li class="<?= ($activePage == 'user') ? 'active':''; ?>">
+            <a href="/user">
               <i class="nc-icon nc-single-02"></i>
               <p>Profil User</p>
             </a>
           </li>
-          <li class="<?= ($activePage == 'datadiri') ? 'active':''; ?>">
-            <a href="/formcatatan/{{Session::get('email')}}">
+          <li class="<?= ($activePage == 'formcatatan') ? 'active':''; ?>">
+            <a href="/formcatatan">
               <i class="nc-icon nc-single-copy-04"></i>
               <p>Ajukan Perjalanan</p>
             </a>
           </li>
-          <li class="<?= ($activePage == 'perjalanansingle') ? 'active':''; ?>">
-            <a href="/daftarjalan/{{Session::get('email')}}">
+          <li class="<?= ($activePage == 'daftarjalan') ? 'active':''; ?>">
+            <a href="/daftarjalan">
               <i class="nc-icon nc-align-left-2"></i>
               <p>Data Perjalanan anda</p>
             </a>

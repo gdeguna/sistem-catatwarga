@@ -116,7 +116,7 @@
                       <div class="form-group">
                         <label>Password</label>
                         <input type="password" class="form-control" placeholder="Tolong dirahasiakan" name="password" value="">
-                        <input type = "hidden" name = "role" value ="warga">
+                        <input type = "hidden" name = "role" value ="satgas">
                         @if($errors->has('password'))
                             <div class="text-danger">
                                 {{ $errors->first('password')}}

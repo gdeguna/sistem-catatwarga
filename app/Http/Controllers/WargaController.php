@@ -16,8 +16,14 @@ class WargaController extends Controller
     	// mengambil data warga
     	$warga = ModelWarga::all();
  
-    	// mengirim data warga ke view masyarakat
-    	return view('masyarakat', ['warga' => $warga]);
+        if(!Session::get('loginsatgas')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            // mengirim data warga ke view masyarakat
+            return view('masyarakat', ['warga' => $warga]);
+        }
+    	
     }
 
     public function dashboard()
@@ -27,7 +33,7 @@ class WargaController extends Controller
         $jumlahditerima = DB::table('tb_catatan')->where('status', '=', 'Diterima')->whereDate('created_at', Carbon::today())->count();
         $jumlahditolak = DB::table('tb_catatan')->where('status', '=', 'Ditolak')->whereDate('created_at', Carbon::today())->count();
 
-        if(!Session::get('login')){
+        if(!Session::get('loginsatgas')){
             return redirect('/')->with('alert','Kamu harus login dulu');
         }
         else{
@@ -35,12 +41,19 @@ class WargaController extends Controller
         }
 
     }
-
-        public function editwarga($email){
-
+        
+        public function editwarga(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
-        $hasilkuh = ModelWarga::where('email', '=', $email)->first();
-        return view('datadiri', ['hasilkuh'=>$hasilkuh]);
+        $hasilkuh = ModelWarga::where('email', '=', $emailuser)->first();
+
+        if(!Session::get('loginsatgas')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('datadiri', ['hasilkuh'=>$hasilkuh]);
+        }
+
     }
 
      public function edituserpost($id, Request $request){
@@ -65,11 +78,12 @@ class WargaController extends Controller
 
     public function halaman_hak()
     {
+        $emailuser = Session::get('email');
         // mengambil data warga
         $hakwarga = DB::table('tb_warga')->where('role', '=', 'warga')->get();
-        $hakadmin = DB::table('tb_warga')->where('role', '=', 'satgas')->get();
+        $hakadmin = DB::table('tb_warga')->where('role', '=', 'satgas')->where('email', '!=', $emailuser)->get();
 
-        if(!Session::get('login')){
+        if(!Session::get('loginsatgas')){
             return redirect('/')->with('alert','Kamu harus login dulu');
         }
         else{
@@ -98,8 +112,8 @@ class WargaController extends Controller
 
     public function dashboardwarga()
     {
-        if(!Session::get('login')){
-            return redirect('/')->with('alert','Kamu harus login dulu');
+        if(!Session::get('loginuser')){
+            return back()->with('alert','Akses Ditolak');
         }
         else{
             return view('publicdashboard');

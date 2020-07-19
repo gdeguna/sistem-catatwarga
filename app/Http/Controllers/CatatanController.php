@@ -7,14 +7,15 @@ use App\ModelCatatan;
 use App\ModelWarga;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class CatatanController extends Controller
 {
 
-	public function index($email){
-
+	public function index(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
-        $hasildata = ModelWarga::where('email', '=', $email)->first();
+        $hasildata = ModelWarga::where('email', '=', $emailuser)->first();
         return view('formcatatan', ['hasildata'=>$hasildata]);
     }
 
@@ -37,19 +38,26 @@ class CatatanController extends Controller
         $datacatatan->status = $request->status;
         $datacatatan->tgl_pengajuan = $request->tgl_pengajuan;
         $datacatatan->save();
-        return redirect('/dashboard')->with('alert','Pengajuan disimpan.');
+        return redirect('/daftarjalan')->with('alert','Pengajuan disimpan.');
 
     }
 
-    public function indexdata($email){
-
+    public function indexdata(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
         // $dataanda = ModelWarga::leftJoin('tb_warga','tb_catatan')->where('email', '=', $email)->get();
         $dataanda = DB::table('tb_warga')
                     ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
-                    ->where('email', '=', $email)
+                    ->where('email', '=', $emailuser)
                     ->get();
-        return view('catatansaya', ['dataanda'=>$dataanda]);
+
+        if(!Session::get('loginsatgas')){
+            return back()->with('alert','Anda Harus Login Dulu.');
+        }
+        else{
+            return view('catatansaya', ['dataanda'=>$dataanda]);
+        }
+
     }
 
     public function alldatakeluar(){
@@ -73,7 +81,14 @@ class CatatanController extends Controller
                     ->where('status', '!=', 'Dibatalkan')
                     ->whereDate('tb_catatan.created_at', Carbon::today())
                     ->get();
-        return view('datakeluar', ['dataall'=>$dataall , 'dataditolak'=>$dataditolak , 'dataditerima'=>$dataditerima, 'todaydata'=>$todaydata], []);
+
+        if(!Session::get('loginsatgas')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('datakeluar', ['dataall'=>$dataall , 'dataditolak'=>$dataditolak , 'dataditerima'=>$dataditerima, 'todaydata'=>$todaydata], []);
+        }
+
     }
 
     public function allmenunggu(){
@@ -84,7 +99,14 @@ class CatatanController extends Controller
                     ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
                     ->where('status', '=', 'Menunggu')
                     ->get();
-        return view('permintaan', ['datamenunggu'=>$datamenunggu]);
+
+        if(!Session::get('loginsatgas')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('permintaan', ['datamenunggu'=>$datamenunggu]);
+        }
+
     }
 
     public function terimapermintaan($id){
@@ -101,6 +123,14 @@ class CatatanController extends Controller
         'status' => 'Ditolak'
         ]);
         return redirect('/permintaan')->with('success','Permintaan ditolak');
+    }
+
+    public function postpjbatal($id){
+        
+        DB::table('tb_catatan')->where('kode_unik', $id)->update([
+        'status' => 'Dibatalkan'
+        ]);
+        return redirect('/daftarjalan')->with('success','Permintaan ditolak');
     }
 
     //warga halaman
@@ -130,7 +160,13 @@ class CatatanController extends Controller
         $datacatatan->status = $request->status;
         $datacatatan->tgl_pengajuan = $request->tgl_pengajuan;
         $datacatatan->save();
-        return redirect('/dashboardwarga')->with('alert','Pengajuan disimpan.');
+
+        if(!Session::get('loginuser')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return redirect('/dashboardwarga')->with('alert','Pengajuan disimpan.');
+        }
 
     }
 

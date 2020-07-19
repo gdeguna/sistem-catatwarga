@@ -49,17 +49,19 @@ Route::get('/register', function () {
 Route::post('/registerpost', 'AuthController@registerpost');
 Route::post('/loginpost', 'AuthController@postlogin')->name('loginpost');
 Route::get('/logout', 'AuthController@logout')->name('logout');
-Route::get('/user/{email}', 'WargaController@editwarga');
+// Route::get('/user/{email}', 'WargaController@editwarga');
+Route::get('/user', 'WargaController@editwarga');
 Route::post('/useredit/{id}', 'WargaController@edituserpost');
 
 //halaman simpan data keluar
-Route::get('/formcatatan/{email}', 'CatatanController@index');
+Route::get('/formcatatan', 'CatatanController@index');
 Route::post('/catatanpost', 'CatatanController@simpancatatan');
-Route::get('/daftarjalan/{email}', 'CatatanController@indexdata');
+Route::get('/daftarjalan', 'CatatanController@indexdata');
 Route::get('/datakeluar', 'CatatanController@alldatakeluar');
 Route::get('/permintaan', 'CatatanController@allmenunggu');
 Route::get('/terima/{kode_unik}', 'CatatanController@terimapermintaan');
 Route::get('/tolak/{kode_unik}', 'CatatanController@tolakpermintaan');
+Route::get('/postbatalperjalanan/{kode_unik}', 'CatatanController@postpjbatal');
 
 // Warga
 Route::get('/dashboardwarga', 'WargaController@dashboardwarga');

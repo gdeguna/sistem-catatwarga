@@ -3,7 +3,7 @@
 
 <!-- isi bagian title -->
 <!-- cara penulisan isi section yang pendek -->
-@section('title', 'Dashboard')
+@section('title', 'Dashboard Warga')
 
 <!-- isi bagian judul halaman -->
 <!-- cara penulisan isi section yang pendek -->

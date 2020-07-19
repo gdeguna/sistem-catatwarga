@@ -67,7 +67,7 @@
                           {{$x->tgl_lahir}}
                         </td>
                         <td class="text-center">
-                          <a class="btn btn-success terima-confirm" href="/adminacc/{{$x->nik}}">Jadikan Satgas</a>
+                          <a class="btn btn-danger btn-link terima-confirm" href="/adminacc/{{$x->nik}}">Jadikan Satgas</a>
                         </td>
                       </tr>
                     @endforeach
@@ -132,7 +132,7 @@
                           {{$y->tgl_lahir}}
                         </td>
                         <td class="text-center">
-                          <a class="btn btn-success terima-confirm" href="/adminexit/{{$y->nik}}">Keluarkan Satgas</a>
+                          <a class="btn btn-danger btn-link terima-confirm" href="/adminexit/{{$y->nik}}">Keluarkan Satgas</a>
                         </td>
                       </tr>
                     @endforeach

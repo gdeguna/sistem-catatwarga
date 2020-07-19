@@ -24,13 +24,13 @@ class AuthController extends Controller
             if(Hash::check($password,$data->password) && $data->role == 'satgas'){
                 Session::put('name',$data->name);
                 Session::put('email',$data->email);
-                Session::put('login',TRUE);
+                Session::put('loginsatgas',TRUE);
                 return redirect('/dashboard');
             }
             if(Hash::check($password,$data->password) && $data->role == 'warga'){
                 Session::put('name',$data->name);
                 Session::put('email',$data->email);
-                Session::put('login',TRUE);
+                Session::put('loginuser',TRUE);
                 return redirect('/dashboardwarga');
             }
             else{
