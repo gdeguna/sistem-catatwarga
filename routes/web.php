@@ -62,12 +62,13 @@ Route::get('/permintaan', 'CatatanController@allmenunggu');
 Route::get('/terima/{kode_unik}', 'CatatanController@terimapermintaan');
 Route::get('/tolak/{kode_unik}', 'CatatanController@tolakpermintaan');
 Route::get('/postbatalperjalanan/{kode_unik}', 'CatatanController@postpjbatal');
+Route::get('/publicpostbatalperjalanan/{kode_unik}', 'CatatanController@pubpostpjbatal');
 
 // Warga
 Route::get('/dashboardwarga', 'WargaController@dashboardwarga');
-Route::get('/publicuser/{email}', 'WargaController@publiceditwarga');
-Route::get('/publicdaftarjalan/{email}', 'CatatanController@publicindexdata');
-Route::get('/publicformcatatan/{email}', 'CatatanController@public_index');
+Route::get('/publicuser', 'WargaController@publiceditwarga');
+Route::get('/publicdaftarjalan', 'CatatanController@publicindexdata');
+Route::get('/publicformcatatan', 'CatatanController@public_index');
 Route::post('/publiccatatanpost', 'CatatanController@simpancatatanwarga');
 
 //Previlege

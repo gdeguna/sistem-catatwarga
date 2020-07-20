@@ -65,19 +65,19 @@ Coded by www.creative-tim.com
             </a>
           </li>
           <li class="<?= ($activePage == 'datadiri') ? 'active':''; ?>">
-            <a href="/publicuser/{{Session::get('email')}}">
+            <a href="/publicuser">
               <i class="nc-icon nc-single-02"></i>
               <p>Profil User</p>
             </a>
           </li>
           <li class="<?= ($activePage == 'datadiri') ? 'active':''; ?>">
-            <a href="/publicformcatatan/{{Session::get('email')}}">
+            <a href="/publicformcatatan">
               <i class="nc-icon nc-single-copy-04"></i>
               <p>Ajukan Perjalanan</p>
             </a>
           </li>
           <li class="<?= ($activePage == 'perjalanansingle') ? 'active':''; ?>">
-            <a href="/publicdaftarjalan/{{Session::get('email')}}">
+            <a href="/publicdaftarjalan">
               <i class="nc-icon nc-align-left-2"></i>
               <p>Data Perjalanan anda</p>
             </a>
@@ -177,12 +177,35 @@ Coded by www.creative-tim.com
   </script>
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{-- tabel masyarakat --}}
   <script>
     $(document).ready(function(){
         $('#tabel-masyarakat').DataTable();
     });
 </script>
+
+{{-- sweetalert terima permintaan --}}
+<script type="text/javascript">
+$('.batal-jalan').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+        title: 'Apakah Yakin?',
+        text: 'Perjalanan anda akan dibatalkan.',
+        icon: 'warning',
+        buttons: ["Batalkan", "Ya!"],
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+            swal("Dibatalkan...", {
+            icon: "success",
+            });
+        }
+    });
+});
+</script>
+
 <script>
     $(document).ready(function(){
         $('#tabel-pengajuan').DataTable();

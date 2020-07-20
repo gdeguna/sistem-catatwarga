@@ -44,9 +44,21 @@
                       <th>
                         Tanggal Pengajuan
                       </th>
+                      <th class="text-center">
+                        Action
+                      </th>
                     </thead>
                     <tbody>
                     @foreach($dataanda as $anum => $a)
+                      @php
+                        $disable = 'hidden';
+                        if ($a->status == 'Menunggu') {
+                          $disable = "";
+                        }
+                        else{
+                          $disable = 'hidden';
+                        };
+                      @endphp
                       <tr>
                         <td>
                           {{$anum +1}}
@@ -65,6 +77,9 @@
                         </td>
                         <td>
                           {{$a->tgl_pengajuan}}
+                        </td>
+                        <td class="text-center">
+                          <a class="btn btn-danger btn-link batal-jalan {{$disable}}" href="/publicpostbatalperjalanan/{{$a->kode_unik}}">Batalkan</a>
                         </td>
                       </tr>
                     @endforeach

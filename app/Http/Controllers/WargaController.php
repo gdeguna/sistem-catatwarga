@@ -121,11 +121,17 @@ class WargaController extends Controller
         
     }
 
-    public function publiceditwarga($email){
-
+    public function publiceditwarga(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
-        $hasilkuh = ModelWarga::where('email', '=', $email)->first();
-        return view('public_datadiri', ['hasilkuh'=>$hasilkuh]);
+        $hasilkuh = ModelWarga::where('email', '=', $emailuser)->first();
+        if(!Session::get('loginuser')){
+            return back()->with('alert','Akses Ditolak');
+        }
+        else{
+            return view('public_datadiri', ['hasilkuh'=>$hasilkuh]);
+        }
+        
     }
 
      public function publicedituserpost($id, Request $request){

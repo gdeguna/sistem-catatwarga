@@ -135,11 +135,18 @@ class CatatanController extends Controller
 
     //warga halaman
 
-    public function public_index($email){
-
+    public function public_index(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
-        $hasildata = ModelWarga::where('email', '=', $email)->first();
-        return view('public_formcatatan', ['hasildata'=>$hasildata]);
+        $hasildata = ModelWarga::where('email', '=', $emailuser)->first();
+
+        if(!Session::get('loginuser')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('public_formcatatan', ['hasildata'=>$hasildata]);
+        }
+        
     }
 
     public function simpancatatanwarga(Request $request){
@@ -165,19 +172,34 @@ class CatatanController extends Controller
             return redirect('/')->with('alert','Kamu harus login dulu');
         }
         else{
-            return redirect('/dashboardwarga')->with('alert','Pengajuan disimpan.');
+            return redirect('/publicdaftarjalan')->with('alert','Pengajuan disimpan.');
         }
 
     }
 
-    public function publicindexdata($email){
-
+    public function publicindexdata(){
+        $emailuser = Session::get('email');
         // $hasilkuh = ModelWarga::find($email);
         // $dataanda = ModelWarga::leftJoin('tb_warga','tb_catatan')->where('email', '=', $email)->get();
         $dataanda = DB::table('tb_warga')
                     ->leftJoin('tb_catatan', 'tb_warga.nik', '=', 'tb_catatan.nik')
-                    ->where('email', '=', $email)
+                    ->where('email', '=', $emailuser)
                     ->get();
-        return view('public_catatansaya', ['dataanda'=>$dataanda]);
+
+        if(!Session::get('loginuser')){
+            return redirect('/')->with('alert','Kamu harus login dulu');
+        }
+        else{
+            return view('public_catatansaya', ['dataanda'=>$dataanda]);
+        }
+        
+    }
+
+        public function pubpostpjbatal($id){
+        
+        DB::table('tb_catatan')->where('kode_unik', $id)->update([
+        'status' => 'Dibatalkan'
+        ]);
+        return redirect('/publicdaftarjalan')->with('success','Permintaan ditolak');
     }
 }
